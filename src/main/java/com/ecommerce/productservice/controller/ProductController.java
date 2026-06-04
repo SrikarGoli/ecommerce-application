@@ -6,7 +6,6 @@ import com.ecommerce.productservice.dto.StockUpdateRequest;
 import com.ecommerce.productservice.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,5 +77,4 @@ public class ProductController {
         productService.updateStock(id, request.getStock());
         return ResponseEntity.ok().build();
     }
-
 }

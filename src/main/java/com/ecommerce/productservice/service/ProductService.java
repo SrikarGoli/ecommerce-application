@@ -10,6 +10,7 @@ import com.ecommerce.productservice.repository.ProductRepository;
 import com.ecommerce.productservice.spec.ProductSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -44,8 +45,9 @@ public class ProductService {
         return new ApiResponse<>(list,object);
     }
 
+    @Cacheable(value = "products", key = "#id")
     public ProductDto findById(Long id){
-        log.info("Fetching product with id: {}", id);
+        log.info("DB HIT for product id: {}", id);
         return repo.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(()->new ObjectNotFoundException("Product not found with id: "+id));
